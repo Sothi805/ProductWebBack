@@ -1,30 +1,27 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const app = express()
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false}))
-
-//routes
-
-const productRouter = require('../ProductWebBack/routes/product.route.js')
-app.use("/api/products", productRouter)
-
-
-app.get('/', (req, res) => {
-    res.send("Hello from Node API")
-})
-
-//dotenv
+const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
-const URL = process.env.MONGODB_URL;  // Use the URL from .env file
+const app = express();
 
-const port = process.env.PORT || 3000;  // Fallback to 3000 if the PORT is not defined
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Routes
+const productRouter = require('./routes/product.route.js');  // Update path as needed
+app.use("/api/products", productRouter);
+
+app.get('/', (req, res) => {
+    res.send("Hello from Node API");
+});
+
+// MongoDB and Port Setup
+const URL = process.env.MONGODB_URL;
+const port = process.env.PORT || 3000;
 
 mongoose.connect(URL)
-.then(() =>{
-    console.log("Connected to Database")
+.then(() => {
+    console.log("Connected to Database");
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
