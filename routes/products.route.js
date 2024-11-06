@@ -1,7 +1,7 @@
 const express = require('express')
 const productRouter =  express.Router()
 
-const {getProducts, getProductById, createProduct, updateProduct, deleteProduct} = require('../controller/product.controller.js')
+const {getProducts, getProductById, createProduct, updateProduct, deleteProduct} = require('../controllers/products.controller.js')
 
 productRouter.get('/', getProducts);          // Fetch all products
 productRouter.get('/:id', getProductById);    // Fetch product by ID

@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-const productRouter = require('./routes/product.route.js');  // Update path as needed
+const productRouter = require('./routes/products.route'); 
 app.use("/api/products", productRouter);
 
 app.get('/', (req, res) => {
