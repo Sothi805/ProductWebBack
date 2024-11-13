@@ -8,18 +8,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-const productRouter = require('./routes/products.route'); 
+const productRouter = require('./routes/product.route.js');  // Update path as needed
 app.use("/api/products", productRouter);
+
+const authRouter = require('./routes/auth.route.js');
+app.use('/api/auth', authRouter);
+
+const userRouter = require('./routes/user.route.js');
+app.use('/api/user', userRouter);
 
 app.get('/', (req, res) => {
     res.send("Hello from Node API");
 });
 
 // MongoDB and Port Setup
-const URL = process.env.MONGODB_URL;
 const port = process.env.PORT || 3000;
 
-mongoose.connect(URL)
+mongoose.connect(process.env.MONGODB_URL)
 .then(() => {
     console.log("Connected to Database");
     app.listen(port, () => {
