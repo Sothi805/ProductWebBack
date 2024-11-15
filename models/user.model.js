@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
-        minlength: 3, // Minimum length
-        maxlength: 20, // Maximum length
+        minlength: 8, // Minimum length
+        maxlength: 16, // Maximum length
         match: /^[a-zA-Z0-9]+$/, // Alphanumeric only
       },      
     password: {
