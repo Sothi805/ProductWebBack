@@ -1,0 +1,15 @@
+.dropdown-btn:first {
+  opacity: 0;
+}
+
+.dropdown-btn:hover {
+  opacity: 0;
+}
+
+.table :where(th, td) {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  vertical-align: top !important;
+}
