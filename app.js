@@ -1,18 +1,33 @@
-const express = require('express');
-const cors = require('cors');
-const authRoute = require('./app/routes/authRouter');
-const form = require('./app/routes/formtRoute');
-require('./app/config/db');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const authRoute = require("./app/routes/authRouter");
+const form = require("./app/routes/formtRoute");
+require("./app/config/db");
+require("dotenv").config();
 
 const app = express();
 
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (!origin || origin === 'http://localhost:8000' || origin === 'https://localhost:8000') {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+// };
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || origin === 'http://localhost:8000' || origin === 'https://localhost:8000') {
+    const allowedOrigins = [
+      "http://localhost:8000",
+      "https://localhost:8000",
+      "https://productwebadmin.onrender.com", // Add your production domain here
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
@@ -23,17 +38,17 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Define your routes
-app.use('/api', authRoute);
-app.use('/api', form);
+app.use("/api", authRoute);
+app.use("/api", form);
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Rejection:', err);
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
 });
 
 // Graceful shutdown
-process.on('SIGINT', () => {
-  console.log('Received SIGINT. Shutting down gracefully...');
+process.on("SIGINT", () => {
+  console.log("Received SIGINT. Shutting down gracefully...");
   process.exit(0);
 });
 
